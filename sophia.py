@@ -21,3 +21,5 @@ lst = []
 for p in text2:
     lst.append(p.get_text())
 
+# Note to self: this scrapes just the article text. It may be nice to  also
+# have some article meta data like date, author, title, etc.
