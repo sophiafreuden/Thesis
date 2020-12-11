@@ -27,4 +27,15 @@ for link in soup.find_all("a", attrs={"class": "link link_hover"}):
     if 'href' in link.attrs:
         temp.append(link.get('href'))
     
-print(temp)
+# print(temp)
+
+temp2 = []
+
+for link in temp:
+    if link not in temp2:
+        temp2.append(link)
+        
+print(temp2)
+
+# Brilliant! Next stop is installing and using Selenium for some button
+# clicking.
