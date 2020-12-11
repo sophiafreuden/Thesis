@@ -4,10 +4,19 @@ Created on Thu Dec 10 12:37:12 2020
 
 @author: sof565
 """
+#  THIS IS A CLONE OF MY INITIAL SELENIUM TEST SCRIPT. This one is to cpntinue
+# to show how selenium works. Refer to seleniumtest.py for initial steps.
 
 # import selenium
 
+# Make sure to import the keys package below for this clone!
+
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys #note uppercase K
+import time
+
+# The keys package allows you to hit virual keys (e.g. enter, esc) while
+# interacting with webpages with selenium.
 
 # If no errors pop up in the console with import selenium, then this is
 # working! If you're not sure how to get selenium installed on your
@@ -41,14 +50,36 @@ driver.get("https://techwithtim.net")
 # driver.close() closes current tab
 # driver.quit() closes whole browser window, but not the whole program
 
+# BE CAREFUL ABOUT PARENTHESES WITH BOTH SELENIUM AND BEAUTIFUL SOUP
+
 print(driver.title) #This should pring 'Tech with Tim...' in the console and
 #  then close the window that it opened. Notice that if you interact with
 # the window outside of spyder (i.e. by clicking on it) before you've coded
 # a quit/close function, it will keep that window/tab open. I recommend
 # playing around with this just to see what things do.
 
+# Below this line is where this script differs from the original one. See my
+# note about the keys package above.
+
+search = driver.find_element_by_name("s")
+
+search.send_keys("test")
+
+search.send_keys(Keys.RETURN)
+
+# Just the above code (plus the sleep and quit commands below) should open
+# Chrome at the given website and search the word "test" in page's search bar.
+# If it doesn't work, obviously check for typos but also make sure that the
+# source code for the page and specifically the search bar hasn't changed.
+
+time.sleep(5)
+
+# This delays the program by five seconds so it doesn't quit immediately. That
+# way we can see what it is we're doing with the commands above.
+
 driver.quit()
 
-
-
+# Selenium returns first element that it finds on a page given the parameter
+# you've given it. So it's really important to make sure the parameter you're
+# using (class, id, name) is unique on that page.
 
