@@ -4,8 +4,10 @@ Created on Thu Dec 10 12:37:12 2020
 
 @author: sof565
 """
-#  THIS IS A CLONE OF MY INITIAL SELENIUM TEST SCRIPT. This one is to continue
+#  THIS IS A CLONE OF MY SECOND SELENIUM TEST SCRIPT. This one is to continue
 # to show how selenium works. Refer to seleniumtest.py for initial steps.
+# This script is specifically for the last part of the second video in the
+# YouTube tutorial on selenium. See bit.ly link below for help.
 
 # import selenium
 
