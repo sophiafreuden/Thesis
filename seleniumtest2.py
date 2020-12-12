@@ -83,7 +83,7 @@ search.send_keys(Keys.RETURN)
 # in the source code on Chrome is more illustrative/useful.
 
 # The try and except below are copied from the the selenium documentation
-# online, which you can find here:
+# online, which you can find here: https://selenium-python.readthedocs.io/waits.html
 # Make sure you load the appropriate packages above.
 
 try:
@@ -91,7 +91,7 @@ try:
         EC.presence_of_element_located((By.ID, "main"))
     )
     print(main.text)
-# Don't forget to add the finally below otherwise the script will throw an
+# Don't forget to add the except below otherwise the script will throw an
 # error at your next command. ALso make sure your indentations aren't throwing
 # errors.
 except:

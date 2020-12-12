@@ -4,12 +4,12 @@ Created on Thu Dec 10 12:37:12 2020
 
 @author: sof565
 """
-#  THIS IS A CLONE OF MY SECOND SELENIUM TEST SCRIPT. This one is to continue
+#  THIS IS A CLONE OF MY THIRD SELENIUM TEST SCRIPT. This one is to continue
 # to show how selenium works. Refer to seleniumtest.py for initial steps.
 # This script is specifically for the last part of the second video in the
 # YouTube tutorial on selenium. See bit.ly link below for help.
 
-# NOTE FOR SCRIPT 3: I've stripped a lot of my commentary that was originally
+# NOTE FOR SCRIPTS 3+: I've stripped a lot of my commentary that was originally
 # in 1 and 2 to make this script shorter and easier to read. Refer to those
 # scripts if you get confused about what certain elements do. The new elements
 # here should have proper commentary.
