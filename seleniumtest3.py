@@ -52,6 +52,7 @@ try:
         EC.presence_of_element_located((By.ID, "main"))
     )
     articles = main.find_elements_by_tag_name("article")
+    # Note "s" in elements above!!
     # This will look for all elements that have the tag name article and put them
     # in a list. The for loop below is for iterating through that list, finding
     # the headers specifically, and printing those headers. Think of it like
@@ -70,5 +71,4 @@ finally:
     driver.quit()
 
 # The above code should work and spit out a bunch of paragraphs taken from the
-# webpage below. I will do the last video in a fourth and possibly fifth
-# test script.
+# webpage below. I will do the third video in a fourth test script.
