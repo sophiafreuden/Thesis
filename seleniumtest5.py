@@ -5,7 +5,8 @@ Created on Fri Dec 18 15:40:37 2020
 @author: sof565
 """
 
-# See test scripts 1-4 for set up and basic commands.
+# See test scripts 1-4 for set up and basic commands. This script is just to
+# ensure that Selenium is working with RT English.
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -34,7 +35,6 @@ time.sleep(2)
 driver.quit()
 
 # In the next script, I will attempt to search for a term that has at least
-# two pages of results, click the "more" button, and scrape the links to
-# the articles.
+# two pages of results and click the "more" button.
 
 
