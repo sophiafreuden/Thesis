@@ -5,9 +5,9 @@ Created on Thu Dec 10 12:37:12 2020
 @author: sof565
 """
 #  THIS IS A CLONE OF MY SECOND SELENIUM TEST SCRIPT. This one is to continue
-# to show how selenium works. Refer to seleniumtest.py for initial steps.
+# to show how Selenium works. Refer to seleniumtest.py for initial steps.
 # This script is specifically for the last part of the second video in the
-# YouTube tutorial on selenium. See bit.ly link below for help.
+# YouTube tutorial on Selenium. See bit.ly link below for help.
 
 # NOTE FOR SCRIPT 3: I've stripped a lot of my commentary that was originally
 # in 1 and 2 to make this script shorter and easier to read. Refer to those
@@ -23,11 +23,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-# If no errors pop up in the console with import selenium, then this is
-# working! If you're not sure how to get selenium installed on your
+# If no errors pop up in the console with import Selenium, then this is
+# working! If you're not sure how to get Selenium installed on your
 # computer, try:
 # https://bit.ly/3m58mo9
-# This is a great YouTube tutorial series on selenium, which includes
+# This is a great YouTube tutorial series on Selenium, which includes
 # installation and some debugging solutions.
 
 PATH = "C:\Program Files (x86)\chromedriver.exe"
@@ -43,7 +43,7 @@ search.send_keys("test")
 
 search.send_keys(Keys.RETURN)
 
-# The try and except below are copied from the the selenium documentation
+# The try and except below are copied from the the Selenium documentation
 # online, which you can find here: https://selenium-python.readthedocs.io/waits.html
 # Make sure you load the appropriate packages above.
 

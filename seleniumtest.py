@@ -9,11 +9,11 @@ Created on Thu Dec 10 12:37:12 2020
 
 from selenium import webdriver
 
-# If no errors pop up in the console with import selenium, then this is
-# working! If you're not sure how to get selenium installed on your
+# If no errors pop up in the console with import Selenium, then this is
+# working! If you're not sure how to get Selenium installed on your
 # computer, try:
 # https://bit.ly/3m58mo9
-# This is a great YouTube tutorial series on selenium, which includes
+# This is a great YouTube tutorial series on Selenium, which includes
 # installation and some debugging solutions.
 
 PATH = "C:\Program Files (x86)\chromedriver.exe"

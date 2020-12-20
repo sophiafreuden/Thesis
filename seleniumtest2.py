@@ -5,7 +5,7 @@ Created on Thu Dec 10 12:37:12 2020
 @author: sof565
 """
 #  THIS IS A CLONE OF MY INITIAL SELENIUM TEST SCRIPT. This one is to continue
-# to show how selenium works. Refer to seleniumtest.py for initial steps.
+# to show how Selenium works. Refer to seleniumtest.py for initial steps.
 
 # import selenium
 
@@ -14,7 +14,7 @@ Created on Thu Dec 10 12:37:12 2020
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys #note uppercase K
 
-# The following packages are from the selenium documentation online.
+# The following packages are from the Selenium documentation online.
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -22,13 +22,13 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 # The keys package allows you to hit virual keys (e.g. enter, esc) while
-# interacting with webpages with selenium.
+# interacting with webpages with Selenium.
 
-# If no errors pop up in the console with import selenium, then this is
-# working! If you're not sure how to get selenium installed on your
+# If no errors pop up in the console with import Selenium, then this is
+# working! If you're not sure how to get Selenium installed on your
 # computer, try:
 # https://bit.ly/3m58mo9
-# This is a great YouTube tutorial series on selenium, which includes
+# This is a great YouTube tutorial series on Selenium, which includes
 # installation and some debugging solutions.
 
 PATH = "C:\Program Files (x86)\chromedriver.exe"
@@ -82,7 +82,7 @@ search.send_keys(Keys.RETURN)
 # into the console. It's not that helpful, as most of the time digging around
 # in the source code on Chrome is more illustrative/useful.
 
-# The try and except below are copied from the the selenium documentation
+# The try and except below are copied from the the Selenium documentation
 # online, which you can find here: https://selenium-python.readthedocs.io/waits.html
 # Make sure you load the appropriate packages above.
 

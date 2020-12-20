@@ -61,5 +61,11 @@ except:
 # an error somewhere. Check for typos or to see if the source code for this
 # webpage has changed.
 
+# The video has three more videos that I won't go over in this script series,
+# but be sure to check them out if you have more questions about more
+# advanced stuff (action chains, etc.) in Selenium.
+
+# The next script will be a test of RT's English website in an attempt to
+# navigate pages and pull links.
 
 
