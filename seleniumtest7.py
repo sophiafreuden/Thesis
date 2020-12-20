@@ -25,7 +25,7 @@ search = driver.find_element_by_name("q")
 
 time.sleep(2)
 
-search.send_keys("mango")
+search.send_keys("cream")
 
 time.sleep(2)
 

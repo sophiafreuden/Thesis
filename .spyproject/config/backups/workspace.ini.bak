@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['script1.py', 'sophia.py', 'links.py', 'seleniumtest3.py', 'seleniumtest4.py']
+recent_files = ['seleniumtest.py', 'seleniumtest2.py', 'seleniumtest3.py', 'seleniumtest4.py', 'seleniumtest5.py', 'seleniumtest6.py', 'seleniumtest7.py']
 
