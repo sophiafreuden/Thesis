@@ -25,7 +25,7 @@ search = driver.find_element_by_name("q")
 
 time.sleep(2)
 
-search.send_keys("cream")
+search.send_keys("mango")
 
 time.sleep(2)
 
@@ -35,6 +35,7 @@ time.sleep(2)
 
 click_counter = 0
 
+# Mango is just a random search term that has a few pages of stories on RT.
 element = driver.find_element_by_link_text("More")
 
 time.sleep(2)
