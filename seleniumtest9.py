@@ -5,7 +5,7 @@ Created on Fri Dec 18 15:40:37 2020
 @author: sof565
 """
 
-# See test scripts 1-6 for set up, basic commands, and initial tests.
+# See test scripts 1-8 for set up, basic commands, and initial tests.
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -45,14 +45,27 @@ time.sleep(2)
 
 links = []
 
-for a in driver.find_elements_by_xpath('.//a'):
+for a in driver.find_elements_by_xpath('.//a[@class="link link_hover"]'):
     links.append(a.get_attribute('href'))
+
+# I had to use xpath here because class name wasn't working for whatever reason.
+# I suspect it was some kind of issue with js and/or css, like how there was
+# in script 7 with figuring out how to click "More".
+
+links2 = []
 
 for link in links:
     print(link)
+    if link not in links2:
+        links2.append(link)
+        
+for link in links2:
+    print(link)
     
-# selec_links = driver.find_element_by_partial_link_text('/news/')
-# I think this is for the actual text of the link, not the href text.
+# Huzzah!
+
+# This is the last of the seleniumtest script series. The next script I make
+# will be my formal scraper in selenium.
 
 
 
