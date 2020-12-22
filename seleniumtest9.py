@@ -33,8 +33,6 @@ search.send_keys(Keys.RETURN)
 
 time.sleep(2)
 
-click_counter = 0
-
 element = driver.find_element_by_link_text("More")
 
 time.sleep(2)
@@ -51,6 +49,14 @@ for a in driver.find_elements_by_xpath('.//a[@class="link link_hover"]'):
 # I had to use xpath here because class name wasn't working for whatever reason.
 # I suspect it was some kind of issue with js and/or css, like how there was
 # in script 7 with figuring out how to click "More".
+
+# Here is a helpful video on Xpath syntax and Xpath helper:
+# https://www.youtube.com/watch?v=JXroNn1DwGk&ab_channel=RAMRabbit
+# Here is the documentation for Xpath:
+# https://www.w3schools.com/xml/xpath_syntax.asp
+# Xpath is essentially a path system using Xml document elements and attributes.
+# Xml docs and HTML docs often go hand in hand, so you can use Xpath on most
+# websites.
 
 links2 = []
 
