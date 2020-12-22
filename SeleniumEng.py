@@ -7,24 +7,23 @@ Created on Fri Dec 18 15:40:37 2020
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import time
 import math
+from bs4 import BeautifulSoup
+import requests
 
 PATH = "C:\Program Files (x86)\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
 
 driver.get("https://www.rt.com/")
 
-time.sleep(2)
+time.sleep(1)
 
 search = driver.find_element_by_name("q")
 
 time.sleep(1)
 
-search.send_keys("mango")
+search.send_keys("soros putin")
 
 time.sleep(1)
 
@@ -48,6 +47,7 @@ def clicker(number):
         element = driver.find_element_by_link_text("More")
         time.sleep(1)
         driver.execute_script("arguments[0].click();", element)
+        time.sleep(1)
         if clicked > clicks:
             break
         clicked += 1
@@ -64,15 +64,36 @@ for a in driver.find_elements_by_xpath('.//a[@class="link link_hover"]'):
 links = []
 
 for link in rawlinks:
-   # print(link)
     if link not in links:
         links.append(link)
         
 for link in links:
     print(link)
-
-print(len(links))
     
+print("This search has pulled " + str(len(links)) + " links.")
+
+rt1 = requests.get(links[1])
+
+page = BeautifulSoup(rt1.content, "html.parser")
+
+rawtext = page.find_all("p")
+
+text = rawtext[0:-5]
+
+paras = []
+
+for p in text:
+    paras.append(p.get_text())
+    
+print(paras)
+
+# This works as is, but the example article that I have it print contains strange
+# mark up characters as well as Tweets that have been embedded into the article.
+# I will have to figure out a way around these things, as well as add article
+# meta data and put it all into a nice CSV file.
+
+
+
 
 
 
