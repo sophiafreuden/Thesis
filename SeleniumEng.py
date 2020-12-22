@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import math
 
 PATH = "C:\Program Files (x86)\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
@@ -23,7 +24,7 @@ search = driver.find_element_by_name("q")
 
 time.sleep(1)
 
-search.send_keys("soros romania")
+search.send_keys("mango")
 
 time.sleep(1)
 
@@ -31,11 +32,35 @@ search.send_keys(Keys.RETURN)
 
 time.sleep(1)
 
-element = driver.find_element_by_link_text("More")
+resultsno = driver.find_element_by_class_name("search-serp__total").text
 
-time.sleep(1)
+resultsno = resultsno[:-8]
 
-driver.execute_script("arguments[0].click();", element)
+resultsno = int(resultsno)
+
+# def clicker(number):
+#     clicked = 0
+#     rawpages = number / 10
+#     pages = math.ceil(rawpages)
+#     clicks = pages - 1
+#     while clicked < clicks:
+#         time.sleep(1)
+#         element = driver.find_element_by_link_text("More")
+#         time.sleep(1)
+#         driver.execute_script("arguments[0].click();", element)
+#         if clicked == clicks:
+#             break
+#         clicked += 1
+    
+print(resultsno)
+
+# time.sleep(1)
+
+# element = driver.find_element_by_link_text("More")
+
+# time.sleep(1)
+
+# driver.execute_script("arguments[0].click();", element)
 
 time.sleep(1)
 
@@ -47,12 +72,14 @@ for a in driver.find_elements_by_xpath('.//a[@class="link link_hover"]'):
 links2 = []
 
 for link in links:
-    print(link)
+   # print(link)
     if link not in links2:
         links2.append(link)
         
 for link in links2:
     print(link)
+
+print(len(links2))
     
 # Huzzah!
 
