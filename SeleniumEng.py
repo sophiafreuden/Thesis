@@ -38,53 +38,42 @@ resultsno = resultsno[:-8]
 
 resultsno = int(resultsno)
 
-# def clicker(number):
-#     clicked = 0
-#     rawpages = number / 10
-#     pages = math.ceil(rawpages)
-#     clicks = pages - 1
-#     while clicked < clicks:
-#         time.sleep(1)
-#         element = driver.find_element_by_link_text("More")
-#         time.sleep(1)
-#         driver.execute_script("arguments[0].click();", element)
-#         if clicked == clicks:
-#             break
-#         clicked += 1
+def clicker(number):
+    clicked = 0
+    rawpages = number / 10
+    pages = math.ceil(rawpages)
+    clicks = pages - 1
+    while clicked < clicks:
+        time.sleep(1)
+        element = driver.find_element_by_link_text("More")
+        time.sleep(1)
+        driver.execute_script("arguments[0].click();", element)
+        if clicked > clicks:
+            break
+        clicked += 1
     
-print(resultsno)
-
-# time.sleep(1)
-
-# element = driver.find_element_by_link_text("More")
-
-# time.sleep(1)
-
-# driver.execute_script("arguments[0].click();", element)
+clicker(resultsno)
 
 time.sleep(1)
 
-links = []
+rawlinks = []
 
 for a in driver.find_elements_by_xpath('.//a[@class="link link_hover"]'):
-    links.append(a.get_attribute('href'))
+    rawlinks.append(a.get_attribute('href'))
 
-links2 = []
+links = []
 
-for link in links:
+for link in rawlinks:
    # print(link)
-    if link not in links2:
-        links2.append(link)
+    if link not in links:
+        links.append(link)
         
-for link in links2:
+for link in links:
     print(link)
 
-print(len(links2))
+print(len(links))
     
-# Huzzah!
 
-# This is the last of the seleniumtest script series. The next script I make
-# will be my formal scraper in selenium.
 
 
 
