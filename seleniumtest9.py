@@ -25,7 +25,7 @@ search = driver.find_element_by_name("q")
 
 time.sleep(2)
 
-search.send_keys("mango")
+search.send_keys("soros romania")
 
 time.sleep(2)
 
@@ -35,7 +35,6 @@ time.sleep(2)
 
 click_counter = 0
 
-# Mango is just a random search term that has a few pages of stories on RT.
 element = driver.find_element_by_link_text("More")
 
 time.sleep(2)
@@ -44,29 +43,18 @@ driver.execute_script("arguments[0].click();", element)
 
 time.sleep(2)
 
-click_counter += 1
+links = []
 
-element = driver.find_element_by_link_text("More")
+for a in driver.find_elements_by_xpath('.//a'):
+    links.append(a.get_attribute('href'))
 
-time.sleep(2)
+for link in links:
+    print(link)
+    
+# selec_links = driver.find_element_by_partial_link_text('/news/')
+# I think this is for the actual text of the link, not the href text.
 
-driver.execute_script("arguments[0].click();", element)
 
-click_counter += 1
 
-time.sleep(5)
-
-if click_counter == 2:
-    driver.quit()
-
-print("Click counter = " + str(click_counter) + ". If it is 2, Chrome will close automatically. Bye bye!")
-
-# The code above is working for me as is. There is likely a more sophisticated
-# way of clicking through pages than copying and pasting like how I have here
-# This method works if you only need to make a couple clicks, but if you need
-# to click a lot, you should probably  write a function that does this for you.
-
-# The next script will focus on pulling links from the pages we've clicked
-# through.
 
 
