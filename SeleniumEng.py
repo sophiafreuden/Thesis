@@ -72,7 +72,7 @@ for link in links:
     
 print("This search has pulled " + str(len(links)) + " links.")
 
-rt1 = requests.get(links[1])
+rt1 = requests.get(links[0])
 
 page = BeautifulSoup(rt1.content, "html.parser")
 
@@ -84,8 +84,18 @@ paras = []
 
 for p in text:
     paras.append(p.get_text())
+
+def concatenator(list):
+    temp = ""
+    for element in list:
+        temp += element
+    return temp
+
+alltext = concatenator(paras)
+
+print(alltext)
+
     
-print(paras)
 
 # This works as is, but the example article that I have it print contains strange
 # mark up characters as well as Tweets that have been embedded into the article.
