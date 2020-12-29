@@ -11,6 +11,8 @@ import time
 import math
 from bs4 import BeautifulSoup
 import requests
+import pandas as pd
+import re
 
 PATH = "C:\Program Files (x86)\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
@@ -76,6 +78,9 @@ rt1 = requests.get(links[0])
 
 page = BeautifulSoup(rt1.content, "html.parser")
 
+# The code and comments in lines 84-110 are for extracting paragraph text.
+# The code for after is for extracting title and date.
+
 rawtext = page.find_all("p")
 
 text = rawtext[0:-5]
@@ -104,7 +109,17 @@ print(alltext)
 # Next step will be figuring out how to scrape multiple articles  plus their
 # meta data and put that all into a CSV file.
 
+rawdate = page.find(attrs = {'class': 'date date_article-header'})
 
+date = rawdate.get_text()
+
+print(date)
+
+rawtitle = page.find(attrs = {'class': 'article__heading'})
+
+title = rawtitle.get_text(strip = True)
+
+print(title)
 
 
 
