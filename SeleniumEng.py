@@ -167,7 +167,7 @@ df["date"] = dates
 df.to_csv("test.csv", sep='*', index=False)
 
 # This importing works, sort of. Opening it in excel reveal a bunch of formating
-# problems, but it does produce a CSV file with the data...
+# problems, but it does produce a CSV file with the data....
 
 
 
