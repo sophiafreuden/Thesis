@@ -72,7 +72,7 @@ for link in links:
     
 print("This search has pulled " + str(len(links)) + " links.")
 
-rt1 = requests.get(links[1])
+rt1 = requests.get(links[0])
 
 page = BeautifulSoup(rt1.content, "html.parser")
 
@@ -84,14 +84,25 @@ paras = []
 
 for p in text:
     paras.append(p.get_text())
-    
-print(paras)
 
-# This works as is, but the example article that I have it print contains strange
-# mark up characters as well as Tweets that have been embedded into the article.
-# I will have to figure out a way around these things, as well as add article
-# meta data and put it all into a nice CSV file.
+def concatenator(list):
+    temp = ""
+    for element in list:
+        temp += (element + " ")
+    return temp
 
+alltext = concatenator(paras)
+
+print(alltext)
+
+# I have decided to keep the Tweets to be consistent with my chapter on Hungary
+# and I don't think there's a good solution to the issue of strange HTML characters,
+# though I'm not seeing any in the test article I've done. I'm wondering if
+# concatenating the strings somehow gets rid of them, though that seems highly
+# unlikely.
+
+# Next step will be figuring out how to scrape multiple articles  plus their
+# meta data and put that all into a CSV file.
 
 
 
