@@ -106,12 +106,20 @@ print(alltext)
 # concatenating the strings somehow gets rid of them, though that seems highly
 # unlikely.
 
-# Next step will be figuring out how to scrape multiple articles  plus their
+# So I later tested this on the last link available that was scraped (index 92),
+# which dates to 2009. It worked (huzzah) and also didn't print any weird HTML
+# characters. Call it witchcraft, call it some kind of poorly understood coding
+# fluke, but it's not transcribing those characters here.
+
+# Next step will be figuring out how to scrape multiple articles plus their
 # meta data and put that all into a CSV file.
 
 rawdate = page.find(attrs = {'class': 'date date_article-header'})
 
-date = rawdate.get_text()
+# The strip argument below strips the texts of the extra white space they
+# may come with.
+
+date = rawdate.get_text(strip = True)
 
 print(date)
 
@@ -121,7 +129,45 @@ title = rawtitle.get_text(strip = True)
 
 print(title)
 
+# Time to put this into a test CSV file.
 
+# The line below will create an empty data frame.
+
+df = pd.DataFrame()
+
+# Below I will put the content, title, and date into lists, and then put
+# those lists as columns in the pandas data frame. I don't need to add
+# the links to a list because "links" is already in list format.
+
+titles = []
+
+titles.append(title)
+
+alltexts = []
+
+alltexts.append(alltext)
+
+dates = []
+
+dates.append(date)
+
+linkstemp = []
+
+linkstemp.append(links[0])
+
+df["URLS"] = linkstemp
+df["title"] = titles
+df["content"] = alltexts
+df["date"] = dates
+
+# print(df)
+# This prints kinda funny, but I think it's working. I will save it as a CSV
+# file to investigate if it exports well.
+
+df.to_csv("test.csv", sep='*', index=False)
+
+# This importing works, sort of. Opening it in excel reveal a bunch of formating
+# problems, but it does produce a CSV file with the data...
 
 
 
