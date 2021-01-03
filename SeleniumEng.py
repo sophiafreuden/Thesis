@@ -71,7 +71,8 @@ def clicker(number):
 # quantity results.
 
 if resultsno > 10:
-  clicker(resultsno)
+    print("Enough results to click through.")
+    clicker(resultsno)
 
 time.sleep(1)
 
@@ -86,105 +87,128 @@ for link in rawlinks:
     if link not in links:
         links.append(link)
         
-for link in links:
-    print(link)
+# for link in links:
+#     print(link)
     
 print("This search has pulled " + str(len(links)) + " links.")
 
-# rt1 = requests.get(links[0])
+rt1 = requests.get(links[0])
 
-# page = BeautifulSoup(rt1.content, "html.parser")
+page = BeautifulSoup(rt1.content, "html.parser")
 
-# # The code and comments in lines 84-110 are for extracting paragraph text.
-# # The code for after is for extracting title and date.
+# The code and comments in lines 84-110 are for extracting paragraph text.
+# The code for after is for extracting title and date.
 
-# rawtext = page.find_all("p")
+rawtext = page.find_all("p")
 
-# text = rawtext[0:-5]
+text = rawtext[0:-5]
 
-# paras = []
+paras = []
 
-# for p in text:
-#     paras.append(p.get_text())
+for p in text:
+    paras.append(p.get_text())
 
-# def concatenator(list):
-#     temp = ""
-#     for element in list:
-#         temp += (element + " ")
-#     return temp
+# print("Raw paras:")
+# print(paras)
 
-# alltext = concatenator(paras)
+def concatenator(list):
+    temp = ""
+    for element in list:
+        temp += (element + " ")
+    return temp
 
-# print(alltext)
+alltext = concatenator(paras)
 
-# # I have decided to keep the Tweets to be consistent with my chapter on Hungary
-# # and I don't think there's a good solution to the issue of strange HTML characters,
-# # though I'm not seeing any in the test article I've done. I'm wondering if
-# # concatenating the strings somehow gets rid of them, though that seems highly
-# # unlikely.
+print("Concatenated paras:")
+print(alltext)
 
-# # So I later tested this on the last link available that was scraped (index 92),
-# # which dates to 2009. It worked (huzzah) and also didn't print any weird HTML
-# # characters. Call it witchcraft, call it some kind of poorly understood coding
-# # fluke, but it's not transcribing those characters here.
+# I have decided to keep the Tweets to be consistent with my chapter on Hungary
+# and I don't think there's a good solution to the issue of strange HTML characters,
+# though I'm not seeing any in the test article I've done. I'm wondering if
+# concatenating the strings somehow gets rid of them, though that seems highly
+# unlikely.
 
-# # Next step will be figuring out how to scrape multiple articles plus their
-# # meta data and put that all into a CSV file.
+# So I later tested this on the last link available that was scraped (index 92),
+# which dates to 2009. It worked (huzzah) and also didn't print any weird HTML
+# characters. Call it witchcraft, call it some kind of poorly understood coding
+# fluke, but it's not transcribing those characters here.
 
-# rawdate = page.find(attrs = {'class': 'date date_article-header'})
+# Next step will be figuring out how to scrape multiple articles plus their
+# meta data and put that all into a CSV file.
 
-# # The strip argument below strips the texts of the extra white space they
-# # may come with.
+# Upon exporting the pd data frame as a CSV file, I'm seeing weird characters
+# where apostrophes should be, for example. I'll try to figure this out at
+# a later date. Right now I want to focus on putting the full text scraper
+# together.
 
-# date = rawdate.get_text(strip = True)
+rawdate = page.find(attrs = {'class': 'date date_article-header'})
 
-# print(date)
+# The strip argument below strips the texts of the extra white space they
+# may come with.
 
-# rawtitle = page.find(attrs = {'class': 'article__heading'})
+date = rawdate.get_text(strip = True)
 
-# title = rawtitle.get_text(strip = True)
+print(date)
 
-# print(title)
+rawtitle = page.find(attrs = {'class': 'article__heading'})
 
-# # Time to put this into a test CSV file.
+title = rawtitle.get_text(strip = True)
 
-# # The line below will create an empty data frame.
+print(title)
 
-# df = pd.DataFrame()
+# Time to put this into a test CSV file.
 
-# # Below I will put the content, title, and date into lists, and then put
-# # those lists as columns in the pandas data frame. I don't need to add
-# # the links to a list because "links" is already in list format.
+# The line below will create an empty data frame.
 
-# titles = []
+df = pd.DataFrame()
 
-# titles.append(title)
+# Below I will put the content, title, and date into lists, and then put
+# those lists as columns in the pandas data frame. I don't need to add
+# the links to a list because "links" is already in list format.
 
-# alltexts = []
+titles = []
 
-# alltexts.append(alltext)
+titles.append(title)
 
-# dates = []
+alltexts = []
 
-# dates.append(date)
+alltexts.append(alltext)
 
-# linkstemp = []
+dates = []
 
-# linkstemp.append(links[0])
+dates.append(date)
 
-# # df["URLS"] = linkstemp
-# # df["title"] = titles
-# # df["content"] = alltexts
-# # df["date"] = dates
+linkstemp = []
 
-# # print(df)
-# # This prints kinda funny, but I think it's working. I will save it as a CSV
-# # file to investigate if it exports well.
+linkstemp.append(links[0])
+
+print(titles)
+print(linkstemp)
+print(alltexts)
+print(dates)
+
+df["URLS"] = linkstemp
+df["title"] = titles
+df["content"] = alltexts
+df["date"] = dates
+
+print(df)
+# This prints kinda funny, but I think it's working. I will save it as a CSV
+# file to investigate if it exports well.
 
 # # df.to_csv("test.csv", sep='*', index=False)
 
-# # This importing works, sort of. Opening it in excel reveal a bunch of formating
-# # problems, but it does produce a CSV file with the data....
+df.to_csv("test4.csv", sep=',', encoding='utf-8', index=False)
+
+# The csv saving function above seems to be the winner. I'm having an internal
+# debate about whether I want to format the date pulled from the article
+# to no longer include the time. I will come back to this after I finish
+# putting the full text scraper together.
+
+print("Test done.")
+
+# This importing works, sort of. Opening it in excel reveal a bunch of formating
+# problems, but it does produce a CSV file with the data....
 
 
 
