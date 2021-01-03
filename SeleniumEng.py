@@ -8,16 +8,24 @@ Created on Fri Dec 18 15:40:37 2020
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
+import sys
 import math
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
-# import re
+
+# Step 1: Set Up Selenium
 
 PATH = "C:\Program Files (x86)\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
 
+# Step 2: Begin Search. You will need to enter your custom search terms in
+# search.send_keys() below (line 36).
+
 driver.get("https://www.rt.com/")
+
+# I've programmed a lot of time.sleep() into this script as rt.com is often
+# quite slow.
 
 time.sleep(2)
 
@@ -25,7 +33,7 @@ search = driver.find_element_by_name("q")
 
 time.sleep(2)
 
-search.send_keys("soros georgia")
+search.send_keys("soros finland")
 
 time.sleep(2)
 
@@ -33,9 +41,22 @@ search.send_keys(Keys.RETURN)
 
 time.sleep(2)
 
+# Step 3: Calculate Results Total and Determine If Clicking is Necessary.
+
 resultsno = driver.find_element_by_class_name("search-serp__total").text
 
 time.sleep(2)
+
+if resultsno == "Results (0)":
+    print("No results found. Chrome will close automatically and this script will halt.")
+    driver.quit()
+    sys.exit()
+
+if resultsno == "More than 300 results":
+    print("Too many results to scrape. Try narrowing your search terms.")
+    print("Chrome will close automatically and this script will halt.")
+    driver.quit()
+    sys.exit()
 
 resultsno = resultsno[:-8]
 
@@ -57,22 +78,24 @@ def clicker(number):
         element = driver.find_element_by_link_text("More")
         time.sleep(3)
         driver.execute_script("arguments[0].click();", element)
-        # time.sleep(3)
         if clicked > clicks:
             break
         clicked += 1
-    print("Clicking completed successfully.")
-    
-# So sometimes I get an issue with the clicker where it says "NoSuchElementException:
-# no such element: Unable to locate element". I made the clicker run a little slower
-# because it started doing this randomly without me changing the code in the clicker
-# or anything before it. I suspect the "More" button just wasn't loading fast
-# enough. I've tested this code many times at this point with search terms of varying
-# quantity results.
+    print("Clicking completed successfully.")    
 
 if resultsno > 10:
     print("Enough results to click through.")
     clicker(resultsno)
+
+if resultsno <= 10 and resultsno != 0:
+    print("10 or fewer results. No clicking necessary.")
+    
+if resultsno == 0:
+    print("No results found. Chrome will close automatically and this script will halt.")
+    driver.quit()
+    exit()
+
+# Step 4: Scrape the Article Links
 
 time.sleep(1)
 
@@ -86,30 +109,10 @@ links = []
 for link in rawlinks:
     if link not in links:
         links.append(link)
-        
-# for link in links:
-#     print(link)
-    
+
 print("This search has pulled " + str(len(links)) + " links.")
 
-rt1 = requests.get(links[0])
-
-page = BeautifulSoup(rt1.content, "html.parser")
-
-# The code and comments in lines 84-110 are for extracting paragraph text.
-# The code for after is for extracting title and date.
-
-rawtext = page.find_all("p")
-
-text = rawtext[0:-5]
-
-paras = []
-
-for p in text:
-    paras.append(p.get_text())
-
-# print("Raw paras:")
-# print(paras)
+# Step 5: Set Up Empty pd Data Frame and Scrape Article Text and Meta Data
 
 def concatenator(list):
     temp = ""
@@ -117,99 +120,66 @@ def concatenator(list):
         temp += (element + " ")
     return temp
 
-alltext = concatenator(paras)
-
-print("Concatenated paras:")
-print(alltext)
-
-# I have decided to keep the Tweets to be consistent with my chapter on Hungary
-# and I don't think there's a good solution to the issue of strange HTML characters,
-# though I'm not seeing any in the test article I've done. I'm wondering if
-# concatenating the strings somehow gets rid of them, though that seems highly
-# unlikely.
-
-# So I later tested this on the last link available that was scraped (index 92),
-# which dates to 2009. It worked (huzzah) and also didn't print any weird HTML
-# characters. Call it witchcraft, call it some kind of poorly understood coding
-# fluke, but it's not transcribing those characters here.
-
-# Next step will be figuring out how to scrape multiple articles plus their
-# meta data and put that all into a CSV file.
-
-# Upon exporting the pd data frame as a CSV file, I'm seeing weird characters
-# where apostrophes should be, for example. I'll try to figure this out at
-# a later date. Right now I want to focus on putting the full text scraper
-# together.
-
-rawdate = page.find(attrs = {'class': 'date date_article-header'})
-
-# The strip argument below strips the texts of the extra white space they
-# may come with.
-
-date = rawdate.get_text(strip = True)
-
-print(date)
-
-rawtitle = page.find(attrs = {'class': 'article__heading'})
-
-title = rawtitle.get_text(strip = True)
-
-print(title)
-
-# Time to put this into a test CSV file.
-
-# The line below will create an empty data frame.
-
 df = pd.DataFrame()
 
-# Below I will put the content, title, and date into lists, and then put
-# those lists as columns in the pandas data frame. I don't need to add
-# the links to a list because "links" is already in list format.
-
-titles = []
-
-titles.append(title)
-
-alltexts = []
-
-alltexts.append(alltext)
-
 dates = []
+titles = []
+alltexts = []
+all_links = []
 
-dates.append(date)
+counter = 0
 
-linkstemp = []
+for link in links:
+    rt = requests.get(link)
+    page = BeautifulSoup(rt.content, "html.parser")
+    # First is the text.
+    rawtext = page.find_all("p")
+    text = rawtext[0:-5]
+    paras = []
+    for p in text:
+        paras.append(p.get_text(strip = True))
+    alltext = concatenator(paras)
+    alltexts.append(alltext)
+    # Next is the date.
+    rawdate = page.find(attrs = {'class': 'date date_article-header'})
+    date = rawdate.get_text(strip = True)
+    dates.append(date)
+    # Next is the title.
+    rawtitle = page.find(attrs = {'class': 'article__heading'})
+    title = rawtitle.get_text(strip = True)
+    titles.append(title)
+    # Lastly, the URL.
+    all_links.append(link)
+    counter += 1
+    time.sleep(1)
+    if counter == len(links):
+        print("Article scraping loop done.")
+        break
 
-linkstemp.append(links[0])
+# Step 6: Compose pd Data Frame with Scraped Info and Export as CSV File
 
-print(titles)
-print(linkstemp)
-print(alltexts)
-print(dates)
-
-df["URLS"] = linkstemp
+df["date"] = dates
 df["title"] = titles
 df["content"] = alltexts
-df["date"] = dates
+df["URL"] = all_links
 
 print(df)
-# This prints kinda funny, but I think it's working. I will save it as a CSV
-# file to investigate if it exports well.
 
-# # df.to_csv("test.csv", sep='*', index=False)
+df.to_csv("RT_eng.csv", sep=',', encoding='utf-8', index=False)
 
-df.to_csv("test4.csv", sep=',', encoding='utf-8', index=False)
+print(" ")
+print("Export complete. Chrome will close automatically. Bye bye!")
 
-# The csv saving function above seems to be the winner. I'm having an internal
-# debate about whether I want to format the date pulled from the article
-# to no longer include the time. I will come back to this after I finish
-# putting the full text scraper together.
+# Step 7: Close Chrome
 
-print("Test done.")
+time.sleep(3)
 
-# This importing works, sort of. Opening it in excel reveal a bunch of formating
-# problems, but it does produce a CSV file with the data....
+driver.quit()
 
+# Some weird HTML characters will appear in the content and title columns in
+# the CSV file you export. Use find and replace in Excel to change them into
+# what they should be: apostrophes, quotation marks, etc.
 
-
-
+# The exported CSV file will be in reverse chronological order (newest at top).
+# You will have to manually rename your CSV file for each search you do with
+# this script.
