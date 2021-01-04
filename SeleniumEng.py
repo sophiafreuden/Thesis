@@ -33,7 +33,7 @@ search = driver.find_element_by_name("q")
 
 time.sleep(2)
 
-search.send_keys("soros finland")
+search.send_keys("einstein")
 
 time.sleep(2)
 
@@ -130,6 +130,7 @@ all_links = []
 counter = 0
 
 for link in links:
+    print("Link is at links index " + str(counter))
     rt = requests.get(link)
     page = BeautifulSoup(rt.content, "html.parser")
     # First is the text.
@@ -142,17 +143,44 @@ for link in links:
     alltexts.append(alltext)
     # Next is the date.
     rawdate = page.find(attrs = {'class': 'date date_article-header'})
+    if rawdate == None :
+        print("This date will be skipped.")
+        date = "Skipped"
+        dates.append(date)
+        rawtitle = page.find(attrs = {'class': 'article__heading'})
+        if rawtitle == None :
+            print("This title will be skipped.")
+            title = "Skipped"
+            titles.append(title)
+            all_links.append(link)
+            counter += 1
+            time.sleep(1)
+            continue
+        title = rawtitle.get_text(strip = True)
+        titles.append(title)
+        all_links.append(link)
+        counter += 1
+        time.sleep(1)
+        continue
     date = rawdate.get_text(strip = True)
     dates.append(date)
     # Next is the title.
     rawtitle = page.find(attrs = {'class': 'article__heading'})
+    if rawtitle == None :
+        print("This title will be skipped.")
+        title = "Skipped"
+        titles.append(title)
+        all_links.append(link)
+        counter += 1
+        time.sleep(1)
+        continue
     title = rawtitle.get_text(strip = True)
     titles.append(title)
     # Lastly, the URL.
     all_links.append(link)
     counter += 1
     time.sleep(1)
-    if counter == len(links):
+    if counter == resultsno:
         print("Article scraping loop done.")
         break
 
