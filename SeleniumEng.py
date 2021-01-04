@@ -135,7 +135,8 @@ for link in links:
     page = BeautifulSoup(rt.content, "html.parser")
     # First is the text.
     rawtext = page.find_all("p")
-    text = rawtext[0:-5]
+    # Below might be -5, not -4
+    text = rawtext[0:-4]
     paras = []
     for p in text:
         paras.append(p.get_text(strip = True))
