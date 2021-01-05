@@ -81,11 +81,13 @@ def clicker(number):
         if clicked > clicks:
             break
         clicked += 1
+        print("Pages clicked = " + str(clicked) + ".")
     print("Clicking completed successfully.")    
 
 if resultsno > 10:
     print("Enough results to click through.")
-    clicker(resultsno)
+    clicker(resultsno)  # Should be set to resultsno unless testing smaller/
+    # specific number.
 
 if resultsno <= 10 and resultsno != 0:
     print("10 or fewer results. No clicking necessary.")
@@ -129,20 +131,73 @@ all_links = []
 
 counter = 0
 
+print("Beginning article scrape.")
+
 for link in links:
-    print("Link is at links index " + str(counter))
+    print("Link is at links index " + str(counter) + ".")
     rt = requests.get(link)
     page = BeautifulSoup(rt.content, "html.parser")
-    # First is the text.
-    rawtext = page.find_all("p")
-    # Below might be -5, not -4
-    text = rawtext[0:-4]
     paras = []
+    rawsummary = page.find('div', attrs = {'class': 'article__summary summary'})
+    if rawsummary == None :
+        print("No summary in article.")
+        rawtext = page.find_all("p")
+        # Index range below optional. Some articles include extra p that if
+        # cut off also cut paragraphs in older articles off. Try -5 if using
+        # for different results.
+        text = rawtext # [0:-4]
+        for p in text:
+            paras.append(p.get_text(strip = True))
+        alltext = concatenator(paras)
+        alltexts.append(alltext)
+        rawdate = page.find(attrs = {'class': 'date date_article-header'})
+        if rawdate == None :
+            print("This date will be skipped.")
+            date = "Skipped"
+            dates.append(date)
+            rawtitle = page.find(attrs = {'class': 'article__heading'})
+            if rawtitle == None :
+                print("This title will be skipped.")
+                title = "Skipped"
+                titles.append(title)
+                all_links.append(link)
+                counter += 1
+                time.sleep(1)
+                continue
+            title = rawtitle.get_text(strip = True)
+            titles.append(title)
+            all_links.append(link)
+            counter += 1
+            time.sleep(1)
+            continue
+        date = rawdate.get_text(strip = True)
+        dates.append(date)
+        rawtitle = page.find(attrs = {'class': 'article__heading'})
+        if rawtitle == None :
+            print("This title will be skipped.")
+            title = "Skipped"
+            titles.append(title)
+            all_links.append(link)
+            counter += 1
+            time.sleep(1)
+            continue
+        title = rawtitle.get_text(strip = True)
+        titles.append(title)
+        all_links.append(link)
+        counter += 1
+        time.sleep(1)
+        continue
+    summary = rawsummary.get_text(strip = True)
+    paras.append(summary)
+    rawtext = page.find_all("p")
+    # Index range below optional. Some articles include extra p that if cut
+    # off also cut paragraphs in older articles off. Try -5 if using for 
+    # different results.
+    text = rawtext # [0:-4]
     for p in text:
         paras.append(p.get_text(strip = True))
     alltext = concatenator(paras)
     alltexts.append(alltext)
-    # Next is the date.
     rawdate = page.find(attrs = {'class': 'date date_article-header'})
     if rawdate == None :
         print("This date will be skipped.")
@@ -165,7 +220,6 @@ for link in links:
         continue
     date = rawdate.get_text(strip = True)
     dates.append(date)
-    # Next is the title.
     rawtitle = page.find(attrs = {'class': 'article__heading'})
     if rawtitle == None :
         print("This title will be skipped.")
@@ -177,13 +231,12 @@ for link in links:
         continue
     title = rawtitle.get_text(strip = True)
     titles.append(title)
-    # Lastly, the URL.
     all_links.append(link)
     counter += 1
     time.sleep(1)
-    if counter == resultsno:
-        print("Article scraping loop done.")
-        break
+
+if counter == resultsno:
+    print("Article scraping done.")
 
 # Step 6: Compose pd Data Frame with Scraped Info and Export as CSV File
 
