@@ -40,9 +40,11 @@ page = BeautifulSoup(rt.content, "html.parser")
 # print("Paragraphs concantenated.")
 # print(alltext)
 
-summary = page.find('div', attrs = {'class': 'article__summary summary'})
+# summary = page.find('div', attrs = {'class': 'article__summary summary'})
 
-print(summary)
+# print(summary)
+
+
 
 
 

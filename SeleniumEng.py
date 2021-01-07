@@ -33,7 +33,7 @@ search = driver.find_element_by_name("q")
 
 time.sleep(2)
 
-search.send_keys("soros russia")
+search.send_keys("soros finland")
 
 time.sleep(2)
 
@@ -170,7 +170,8 @@ for link in links:
             counter += 1
             time.sleep(1)
             continue
-        date = rawdate.get_text(strip = True)
+        newdate = rawdate.get_text(strip = True)
+        date = newdate[:-6]
         dates.append(date)
         rawtitle = page.find(attrs = {'class': 'article__heading'})
         if rawtitle == None :
@@ -218,7 +219,8 @@ for link in links:
         counter += 1
         time.sleep(1)
         continue
-    date = rawdate.get_text(strip = True)
+    newdate = rawdate.get_text(strip = True)
+    date = newdate[:-6]
     dates.append(date)
     rawtitle = page.find(attrs = {'class': 'article__heading'})
     if rawtitle == None :
