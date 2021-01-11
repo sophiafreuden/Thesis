@@ -5,6 +5,7 @@
  DO THIS IN ORDER. Don't bother cleaning the title column.
  
  Replace Ã¡ with "a"
+ Replace ‚¬ with " "
  Replace €¦ with " "
  Replace Ì¶ with " "
  Repkace â€“ with " "
@@ -25,7 +26,7 @@
  Replace quotation marks with " "
  Replace double spaces with single spaces (as many times as needed)
  
- If you're looking for a specific phrase with spaces (e.g. 'stop soros),
+ If you're looking for a specific phrase with spaces (e.g. 'stop soros'),
  replace that phrase with a version without spaces (stopsoros).
  
  Be sure to clip off endings of articles that have copyright info and such.
