@@ -16,14 +16,15 @@
  Replace â€ with " "
  Replace Ð± with " "
  Replace Â£ with " "
+ Replace Â with " "
  Replace ˜ ï¸ with " "
  Replace "t.co" with " tdotco "
- Replace . with " "
  Replace em (—) dash with " "
  Replace en (–) dash with " "
  Replace - with " "
  Replace apostrophes with " "
  Replace quotation marks with " "
+ Replace . with " "
  Replace double spaces with single spaces (as many times as needed)
  
  If you're looking for a specific phrase with spaces (e.g. 'stop soros'),
