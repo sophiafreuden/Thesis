@@ -74,9 +74,9 @@ def clicker(number):
     clicks = pages - 1
     print("Clicks is " + str(clicks) + ".")
     while clicked < clicks:
-        time.sleep(4) # Usually 3, more if "More" button disappears
+        time.sleep(3) # Usually 3, more if "More" button disappears in console
         element = driver.find_element_by_link_text("More")
-        time.sleep(4) # Usually 3, more if "More" button disappears
+        time.sleep(3) # Usually 3, more if "More" button disappears in console
         driver.execute_script("arguments[0].click();", element)
         if clicked > clicks:
             break
