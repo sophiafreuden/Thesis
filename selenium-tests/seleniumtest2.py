@@ -39,7 +39,7 @@ PATH = "C:\Program Files (x86)\chromedriver.exe"
 
 driver = webdriver.Chrome(PATH)
 
-driver.get("https://techwithtim.net")
+driver.get("https://www.techwithtim.net/")
 
 # This should open a webpage in a new Chrome window. You  might get a pop
 # up window from your computer security software about opening a new program
@@ -58,7 +58,7 @@ driver.get("https://techwithtim.net")
 
 # BE CAREFUL ABOUT PARENTHESES WITH BOTH SELENIUM AND BEAUTIFUL SOUP
 
-print(driver.title) #This should pring 'Tech with Tim...' in the console and
+#  print(driver.title) #This should pring 'Tech with Tim...' in the console and
 #  then close the window that it opened. Notice that if you interact with
 # the window outside of spyder (i.e. by clicking on it) before you've coded
 # a quit/close function, it will keep that window/tab open. I recommend
@@ -78,7 +78,7 @@ search.send_keys(Keys.RETURN)
 # If it doesn't work, obviously check for typos but also make sure that the
 # source code for the page and specifically the search bar hasn't changed.
 
-# print(driver.page_source) this will print the entire page source code (HTML)
+print(driver.page_source) # this will print the entire page source code (HTML)
 # into the console. It's not that helpful, as most of the time digging around
 # in the source code on Chrome is more illustrative/useful.
 
@@ -97,11 +97,11 @@ try:
 except:
     driver.quit()
 
-# main = driver.find_element_by_id("main") commenting this out with the try
+main = driver.find_element_by_id("main") # commenting this out with the try
 # and except above.
 print(main.text)
 
-# time.sleep(5)
+time.sleep(5)
 
 # This delays the program by five seconds so it doesn't quit immediately. That
 # way we can see what it is we're doing with the commands above.
