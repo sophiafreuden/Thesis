@@ -33,7 +33,7 @@ search = driver.find_element_by_name("q")
 
 time.sleep(2)
 
-search.send_keys("clinton civil society")
+search.send_keys("soros democratic party")
 
 time.sleep(2)
 
@@ -74,9 +74,9 @@ def clicker(number):
     clicks = pages - 1
     print("Clicks is " + str(clicks) + ".")
     while clicked < clicks:
-        time.sleep(3)
+        time.sleep(4) # Usually 3, more if "More" button disappears
         element = driver.find_element_by_link_text("More")
-        time.sleep(3)
+        time.sleep(4) # Usually 3, more if "More" button disappears
         driver.execute_script("arguments[0].click();", element)
         if clicked > clicks:
             break
@@ -132,6 +132,14 @@ all_links = []
 counter = 0
 
 print("Beginning article scrape.")
+
+# links = links[0:174]
+
+# linkstemp = links[176:295]
+
+# for link in linkstemp:
+#     if link not in links:
+#         links.append(link)
 
 for link in links:
     print("Link is at links index " + str(counter) + ".")
