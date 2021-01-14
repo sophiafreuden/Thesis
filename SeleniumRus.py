@@ -85,7 +85,160 @@ time.sleep(1)
 for link in links:
     print(link)
 
-print(len(links))
+print("This search has pulled " + str(len(links)) + " links.")
 
-# driver.quit()
+def concatenator(list):
+    temp = ""
+    for element in list:
+        temp += (element + " ")
+    return temp
+
+df = pd.DataFrame()
+
+dates = []
+titles = []
+alltexts = []
+all_links = []
+
+counter = 0
+
+print("Beginning article scrape.")
+
+for link in links:
+    print("Link is at links index " + str(counter) + ".")
+    rt = requests.get(link)
+    page = BeautifulSoup(rt.content, "html.parser")
+    paras = []
+    rawsummary = page.find('div', attrs = {'class': 'article__summary article__summary_article-page js-mediator-article'})
+    if rawsummary == None :
+        print("No summary in article.")
+        rawtext = page.find_all("p")
+        # Index range below optional. Some articles include extra p that if
+        # cut off also cut paragraphs in older articles off. Try -5 if using
+        # for different results.
+        text = rawtext # [0:-4]
+        for p in text:
+            paras.append(p.get_text(strip = True))
+        alltext = concatenator(paras)
+        alltexts.append(alltext)
+        rawdate = page.find(attrs = {'class': 'date'})
+        if rawdate == None :
+            print("This date will be skipped.")
+            date = "Skipped"
+            dates.append(date)
+            rawtitle = page.find(attrs = {'class': 'article__heading article__heading_article-page'})
+            if rawtitle == None :
+                print("This title will be skipped.")
+                title = "Skipped"
+                titles.append(title)
+                all_links.append(link)
+                counter += 1
+                time.sleep(1)
+                continue
+            title = rawtitle.get_text(strip = True)
+            titles.append(title)
+            all_links.append(link)
+            counter += 1
+            time.sleep(1)
+            continue
+        newdate = rawdate.get_text(strip = True)
+        date = newdate[:-6]
+        dates.append(date)
+        rawtitle = page.find(attrs = {'class': 'article__heading article__heading_article-page'})
+        if rawtitle == None :
+            print("This title will be skipped.")
+            title = "Skipped"
+            titles.append(title)
+            all_links.append(link)
+            counter += 1
+            time.sleep(1)
+            continue
+        title = rawtitle.get_text(strip = True)
+        titles.append(title)
+        all_links.append(link)
+        counter += 1
+        time.sleep(1)
+        continue
+    summary = rawsummary.get_text(strip = True)
+    paras.append(summary)
+    rawtext = page.find_all("p")
+    # Index range below optional. Some articles include extra p that if cut
+    # off also cut paragraphs in older articles off. Try -5 if using for 
+    # different results.
+    text = rawtext # [0:-4]
+    for p in text:
+        paras.append(p.get_text(strip = True))
+    alltext = concatenator(paras)
+    alltexts.append(alltext)
+    rawdate = page.find(attrs = {'class': 'date'})
+    if rawdate == None :
+        print("This date will be skipped.")
+        date = "Skipped"
+        dates.append(date)
+        rawtitle = page.find(attrs = {'class': 'article__heading article__heading_article-page'})
+        if rawtitle == None :
+            print("This title will be skipped.")
+            title = "Skipped"
+            titles.append(title)
+            all_links.append(link)
+            counter += 1
+            time.sleep(1)
+            continue
+        title = rawtitle.get_text(strip = True)
+        titles.append(title)
+        all_links.append(link)
+        counter += 1
+        time.sleep(1)
+        continue
+    newdate = rawdate.get_text(strip = True)
+    date = newdate[:-7]
+    dates.append(date)
+    rawtitle = page.find(attrs = {'class': 'article__heading article__heading_article-page'})
+    if rawtitle == None :
+        print("This title will be skipped.")
+        title = "Skipped"
+        titles.append(title)
+        all_links.append(link)
+        counter += 1
+        time.sleep(1)
+        continue
+    title = rawtitle.get_text(strip = True)
+    titles.append(title)
+    all_links.append(link)
+    counter += 1
+    time.sleep(1)
+
+# I notice one title was skipped in my test for this. It was because video
+# articles have their titles under a different tag/class. These pages typically
+# only have a paragraph or so of text, so I'm not inclined to change anything.
+
+if counter == resultsno:
+    print("Article scraping done.")
+
+df["date"] = dates
+df["title"] = titles
+df["content"] = alltexts
+df["URL"] = all_links
+
+print(df)
+
+df.to_csv("RT_rus.txt", sep='*', index=False)
+# After doing some digging, it seems saving a CSV with Cyrillic is a bad
+# idea. This will save it as a txt file that you can then read into r with
+# read.delim() or read.delim2(). I won't have any easy way of editing out
+# the rows with video articles, but if these get read into R, that's not a
+# big deal.
+
+print(" ")
+print("Export complete. Chrome will close automatically. Bye bye!")
+
+# Be sure to rename your txt files immediately. I will follow a phonetic
+# spelling of the Russian searches in Latin letters.
+
+# Will have to find/replace all the date months with numbers in notepad
+# until I figure out how to extract the datetime from the HTML.
+
+time.sleep(3)
+
+driver.quit()
 
