@@ -44,7 +44,8 @@
  Russian months in genitive replaced with appropriate calendar numbers
 
 The RT Russian disclaimer replaced with a single space (note декабря gets replaced 
-with 12 and KEEP SPACES at ends of lines):
+with 12 and KEEP SPACES at ends of lines; this works better on Mac as in Windows
+NotePad can only search for so many characters at once):
 © Автономная некоммерческая организация «ТВ-Новости», 2005—2021 гг. Все права защищены. 
 Сетевое изданиеrt.comзарегистрировано Роскомнадзором 21 12 2016 г., свидетельство 
 Эл № ФС 77-68119 Главный редактор: Симоньян М. С. Адрес редакции: 111020, Москва, 
