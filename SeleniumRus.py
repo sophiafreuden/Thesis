@@ -22,7 +22,7 @@ driver = webdriver.Chrome(PATH)
 
 # Change the URL below to what you need it to be.
 
-driver.get("https://russian.rt.com/search?q=%D1%81%D0%BE%D1%80%D0%BE%D1%81&type=&df=&dt=2019-12-31")
+driver.get("https://russian.rt.com/search?q=%D0%BA%D0%BB%D0%B8%D0%BD%D1%82%D0%BE%D0%BD+%D0%BC%D0%B0%D0%B9%D0%B4%D0%B0%D0%BD&type=&df=&dt=2019-12-31")
 
 closepopup = driver.find_elements_by_xpath('.//a[@class="subscribe__close js-subscribe-close"]')
 
@@ -128,8 +128,8 @@ for link in links:
             dates.append(date)
             rawtitle = page.find(attrs = {'class': 'article__heading article__heading_article-page'})
             if rawtitle == None :
-                print("This title will be skipped.")
-                title = "Skipped"
+                print("Skipped - Title may be under different tag.")
+                title = "Skipped - Title may be under different tag."
                 titles.append(title)
                 all_links.append(link)
                 counter += 1
@@ -146,8 +146,8 @@ for link in links:
         dates.append(date)
         rawtitle = page.find(attrs = {'class': 'article__heading article__heading_article-page'})
         if rawtitle == None :
-            print("This title will be skipped.")
-            title = "Skipped"
+            print("Skipped - Title may be under different tag.")
+            title = "Skipped - Title may be under different tag."
             titles.append(title)
             all_links.append(link)
             counter += 1
@@ -177,8 +177,8 @@ for link in links:
         dates.append(date)
         rawtitle = page.find(attrs = {'class': 'article__heading article__heading_article-page'})
         if rawtitle == None :
-            print("This title will be skipped.")
-            title = "Skipped"
+            print("Skipped - Title may be under different tag.")
+            title = "Skipped - Title may be under different tag."
             titles.append(title)
             all_links.append(link)
             counter += 1
@@ -195,8 +195,8 @@ for link in links:
     dates.append(date)
     rawtitle = page.find(attrs = {'class': 'article__heading article__heading_article-page'})
     if rawtitle == None :
-        print("This title will be skipped.")
-        title = "Skipped"
+        print("Skipped - Title may be under different tag.")
+        title = "Skipped - Title may be under different tag."
         titles.append(title)
         all_links.append(link)
         counter += 1
