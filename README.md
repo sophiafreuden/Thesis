@@ -59,7 +59,7 @@ NotePad can only search for so many characters at once):
 
  And replace all double spaces with a single space as many times as needed.
  
- IN R: Delete tibble rows that have a skippped date. Titles are often skipped
+ IN R: Delete tibble rows that have a skipped date. Titles are often skipped
  as they might be under a different tag.
  
  
