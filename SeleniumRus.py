@@ -20,7 +20,7 @@ PATH = "C:\Program Files (x86)\chromedriver.exe"
 
 driver = webdriver.Chrome(PATH)
 
-# Change the URL below to what you need it to be.
+# Change the URL below to what you need it to be re: search term and date.
 
 driver.get("https://russian.rt.com/search?q=%D0%BA%D0%BB%D0%B8%D0%BD%D1%82%D0%BE%D0%BD+%D0%BC%D0%B0%D0%B9%D0%B4%D0%B0%D0%BD&type=&df=&dt=2019-12-31")
 
