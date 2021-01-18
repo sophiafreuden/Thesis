@@ -30,7 +30,7 @@ search = driver.find_elements_by_xpath('.//input[@class="Input-root Input-hasIco
 # For whatever reason, the search element above won't work if you use name.
 
 # Change the search term below as needed.
-search[0].send_keys("apfel")
+search[0].send_keys("mango")
 
 time.sleep(1)
 
@@ -136,5 +136,126 @@ counter = 0
 
 print("Beginning article scrape.")
 
+# For whatever reason, the extra spaces that appeared at the end of the class
+# names in the html were throwing this for loop off and making it impossible
+# for it to find the summaries, dates, and titles. I deleted those extra spaces.
+
+for link in links:
+    print("Link is at links index " + str(counter) + ".")
+    rt = requests.get(link)
+    page = BeautifulSoup(rt.content, "html.parser")
+    paras = []
+    rawsummary = page.find(attrs = {'class': 'Text-root Text-type_1'})
+    if rawsummary == None :
+        print("No summary in article.")
+        rawtext = page.find_all("p")
+        text = rawtext
+        for p in text:
+            paras.append(p.get_text(strip = True))
+        alltext = concatenator(paras)
+        alltexts.append(alltext)
+        rawdate = page.find(attrs = {'class': 'Timestamp-root Timestamp-default'})
+        if rawdate == None :
+            print("This date will be skipped.")
+            date = "Skipped"
+            dates.append(date)
+            rawtitle = page.find(attrs = {'class': 'HeadLine-root HeadLine-type_2'})
+            if rawtitle == None :
+                print("Skipped - Title may be under different tag.")
+                title = "Skipped - Title may be under different tag."
+                titles.append(title)
+                all_links.append(link)
+                counter += 1
+                time.sleep(1)
+                continue
+            title = rawtitle.get_text(strip = True)
+            titles.append(title)
+            all_links.append(link)
+            counter += 1
+            time.sleep(1)
+            continue
+        newdate = rawdate.get_text(strip = True)
+        date = newdate[:-10]
+        dates.append(date)
+        rawtitle = page.find(attrs = {'class': 'HeadLine-root HeadLine-type_2'})
+        if rawtitle == None :
+            print("Skipped - Title may be under different tag.")
+            title = "Skipped - Title may be under different tag."
+            titles.append(title)
+            all_links.append(link)
+            counter += 1
+            time.sleep(1)
+            continue
+        title = rawtitle.get_text(strip = True)
+        titles.append(title)
+        all_links.append(link)
+        counter += 1
+        time.sleep(1)
+        continue
+    summary = rawsummary.get_text(strip = True)
+    paras.append(summary)
+    rawtext = page.find_all("p")
+    text = rawtext
+    for p in text:
+        paras.append(p.get_text(strip = True))
+    alltext = concatenator(paras)
+    alltexts.append(alltext)
+    rawdate = page.find(attrs = {'class': 'Timestamp-root Timestamp-default'})
+    if rawdate == None :
+        print("This date will be skipped.")
+        date = "Skipped"
+        dates.append(date)
+        rawtitle = page.find(attrs = {'class': 'HeadLine-root HeadLine-type_2'})
+        if rawtitle == None :
+            print("Skipped - Title may be under different tag.")
+            title = "Skipped - Title may be under different tag."
+            titles.append(title)
+            all_links.append(link)
+            counter += 1
+            time.sleep(1)
+            continue
+        title = rawtitle.get_text(strip = True)
+        titles.append(title)
+        all_links.append(link)
+        counter += 1
+        time.sleep(1)
+        continue
+    newdate = rawdate.get_text(strip = True)
+    date = newdate[:-10]
+    dates.append(date)
+    rawtitle = page.find(attrs = {'class': 'HeadLine-root HeadLine-type_2'})
+    if rawtitle == None :
+        print("Skipped - Title may be under different tag.")
+        title = "Skipped - Title may be under different tag."
+        titles.append(title)
+        all_links.append(link)
+        counter += 1
+        time.sleep(1)
+        continue
+    title = rawtitle.get_text(strip = True)
+    titles.append(title)
+    all_links.append(link)
+    counter += 1
+    time.sleep(1)
+
+if counter == resultsno:
+    print("Article scraping done.")
+
+df["date"] = dates
+df["title"] = titles
+df["content"] = alltexts
+df["URL"] = all_links
+
+print(df)
+
+df.to_csv("RT_ger.txt", sep='*', index=False)
+
+print(" ")
+print("Export complete. Chrome will close automatically. Tschüss!")
+
+# Be sure to rename your txt files immediately. I will follow a non-diacritic
+# spelling in the file names of the German searches (i.e. no umlauts).
+
+# See cleanup instructions in the readme.
 
 

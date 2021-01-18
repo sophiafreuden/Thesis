@@ -113,10 +113,7 @@ for link in links:
     if rawsummary == None :
         print("No summary in article.")
         rawtext = page.find_all("p")
-        # Index range below optional. Some articles include extra p that if
-        # cut off also cut paragraphs in older articles off. Try -5 if using
-        # for different results.
-        text = rawtext # [0:-4]
+        text = rawtext
         for p in text:
             paras.append(p.get_text(strip = True))
         alltext = concatenator(paras)
@@ -142,7 +139,7 @@ for link in links:
             time.sleep(1)
             continue
         newdate = rawdate.get_text(strip = True)
-        date = newdate[:-6]
+        date = newdate[:-7]
         dates.append(date)
         rawtitle = page.find(attrs = {'class': 'article__heading article__heading_article-page'})
         if rawtitle == None :
@@ -162,10 +159,7 @@ for link in links:
     summary = rawsummary.get_text(strip = True)
     paras.append(summary)
     rawtext = page.find_all("p")
-    # Index range below optional. Some articles include extra p that if cut
-    # off also cut paragraphs in older articles off. Try -5 if using for 
-    # different results.
-    text = rawtext # [0:-4]
+    text = rawtext
     for p in text:
         paras.append(p.get_text(strip = True))
     alltext = concatenator(paras)
@@ -233,10 +227,9 @@ print(" ")
 print("Export complete. Chrome will close automatically. Пока пока!")
 
 # Be sure to rename your txt files immediately. I will follow a phonetic
-# spelling of the Russian searches in Latin letters.
+# spelling in the file names of the Russian searches in Latin letters.
 
-# Will have to find/replace all the date months with numbers in notepad
-# until I figure out how to extract the datetime from the HTML.
+# See cleanup instructions in the readme.
 
 time.sleep(3)
 
