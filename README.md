@@ -88,6 +88,8 @@ NotePad can only search for so many characters at once):
  Mac):
  Sie erhalten eine E-Mail, in der Sie Ihre Anmeldung bestätigen müssen.
  
+ Replace en dash – with single space
+ 
  
  
  
