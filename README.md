@@ -1,6 +1,10 @@
 # Thesis
 
  /// Instructions for English scrape (Russian and German below):
+ 
+ Run scrape after changing the search term (see .py for more instructions).
+ 
+ Data cleanup instructions:
 
  Guide for removing special characters from CSV files (remove quotation marks
  from suggested replacements and note spacing):
@@ -38,6 +42,12 @@
  
  /// Instructions for Russian scrape (German below):
  
+ Run scrape after changing the get link to the link that has both the correct
+ search term and proper dates (see .py for more instructions). You will have to
+ get this link by hand from russian.rt.com.
+ 
+ Data cleanup instructions:
+ 
  Be sure to find and replace the following things IN THIS ORDER from the txt
  file in NotePad or equivalent:
 
@@ -61,6 +71,24 @@ NotePad can only search for so many characters at once):
  
  IN R: Delete tibble rows that have a skipped date. Titles are often skipped
  as they might be under a different tag.
+ 
+ /// Instructions for German scrape:
+ 
+ Run scrape after changing the search term (see .py for more instructions).
+ 
+ Data cleanup instructions:
+ 
+ Be sure to find and replace the following things IN THIS ORDER from the txt
+ file in NotePad or equivalent:
+
+ German month abbreviations replaced with appropriate calendar numbers. Some
+ may have a period in them (e.g. Dez.).
+ 
+ The RT German newsletter text replaced with a single space (may work better on
+ Mac):
+ Sie erhalten eine E-Mail, in der Sie Ihre Anmeldung bestätigen müssen.
+ 
+ 
  
  
  
