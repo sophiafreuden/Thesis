@@ -56,9 +56,9 @@ def clicker(number):
     clicks = pages - 1
     print("Clicks is " + str(clicks) + ".")
     while clicked < clicks:
-        time.sleep(3) # Usually 3, more if "More" button disappears in console
+        time.sleep(3) # Usually 3, more if "Загрузить еще" button disappears in console
         button = driver.find_element_by_xpath('.//a[@class="button__item button__item_listing"]')
-        time.sleep(3) # Usually 3, more if "More" button disappears in console
+        time.sleep(3) # Usually 3, more if "Загрузить еще" button disappears in console
         driver.execute_script("arguments[0].click();", button)
         if clicked > clicks:
             break
@@ -71,7 +71,7 @@ if resultsno > 15:
     clicker(resultsno)
 
 if resultsno <= 15 and resultsno != 0:
-    print("10 or fewer results. No clicking necessary.")
+    print("15 or fewer results. No clicking necessary.")
 
 time.sleep(1)
 
@@ -230,7 +230,7 @@ df.to_csv("RT_rus.txt", sep='*', index=False)
 # big deal.
 
 print(" ")
-print("Export complete. Chrome will close automatically. Bye bye!")
+print("Export complete. Chrome will close automatically. Пока пока!")
 
 # Be sure to rename your txt files immediately. I will follow a phonetic
 # spelling of the Russian searches in Latin letters.
