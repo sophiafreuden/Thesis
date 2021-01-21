@@ -30,9 +30,21 @@ search = driver.find_elements_by_xpath('.//input[@class="Input-root Input-hasIco
 # For whatever reason, the search element above won't work if you use name.
 
 # Change the search term below as needed.
-search[0].send_keys("soros")
+search[0].send_keys("orban")
 
 time.sleep(1)
+
+# I have found that sometimes the "Weiter" button stops working in Chrome
+# after enough clicks. There's no way to fix this in Python--it's a Chrome/
+# internet issue--so I added some lines to select a "date from" in the dates
+# search boxes to limit search results. Comment out lines 41-48 as needed.
+# dt = driver.find_elements_by_xpath('.//input[@name="df"]')
+
+# time.sleep(1)
+
+# dt[0].send_keys("31-12-2016")
+
+# time.sleep(1)
 
 dt = driver.find_elements_by_xpath('.//input[@name="dt"]')
 
@@ -77,9 +89,9 @@ def clicker(number):
     clicks = pages - 1
     print("Clicks is " + str(clicks) + ".")
     while clicked < clicks:
-        time.sleep(3) # Usually 3, more if "Weiter" button disappears in console
+        time.sleep(5) # Usually 5, more if "Weiter" button won't work in Chrome
         button = driver.find_element_by_xpath('.//button[@class="Button-root Button-is1to1 Button-type_l Button_dark"]')
-        time.sleep(3) # Usually 3, more if "Weiter" button disappears in console
+        time.sleep(1) # Usually 1, more if "Weiter" button won't work in Chrome
         driver.execute_script("arguments[0].click();", button)
         if clicked > clicks:
             break
@@ -95,8 +107,6 @@ if resultsno <= 10 and resultsno != 0:
     print("10 or fewer results. No clicking necessary.")
 
 time.sleep(1)
-
-# "Link-root Link-isFullCard "
 
 links = []
 
@@ -118,6 +128,20 @@ for link in links:
     print(link)
 
 print("This search has pulled a revised " + str(len(links)) + " links.")
+
+# Because of issues with the "Weiter" button functioning properly, I've included
+# this error message and condition. 5 is an arbitrary number; I'm not concerned
+# if the scraper doesn't hit every unique link, but it shouldn't be missing
+# tons of them. Sometimes the results will have duplicate stories, so len(links)
+# won't always equate resultsno.
+if (resultsno - len(links)) > 5:
+    print("The number of links pulled does not match the number of results.")
+    print("Try revising date from search option or sleep time in clicker.")
+    print("Chrome will close automatically and this script will halt.")
+    print("You can comment out if statement at line 132 to override.")
+    driver.quit()
+    time.sleep(1)
+    sys.exit()
 
 def concatenator(list):
     temp = ""
@@ -253,8 +277,12 @@ df.to_csv("RT_ger.txt", sep='*', index=False)
 print(" ")
 print("Export complete. Chrome will close automatically. Tschüss!")
 
+time.sleep(3)
+
+driver.quit()
+
 # Be sure to rename your txt files immediately. I will follow a non-diacritic
-# spelling in the file names of the German searches (i.e. no umlauts).
+# spelling in the file names of the German searches (i.e. no umlauts, ß = ss).
 
 # See cleanup instructions in the readme.
 
