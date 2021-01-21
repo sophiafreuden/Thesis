@@ -90,7 +90,7 @@ NotePad can only search for so many characters at once):
  
  Replace en dash – with single space
  
- 
+ Replace double spaces with a single space as many times as needed.
  
  
  
