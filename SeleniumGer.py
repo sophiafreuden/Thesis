@@ -30,7 +30,7 @@ search = driver.find_elements_by_xpath('.//input[@class="Input-root Input-hasIco
 # For whatever reason, the search element above won't work if you use name.
 
 # Change the search term below as needed.
-search[0].send_keys("mango")
+search[0].send_keys("soros")
 
 time.sleep(1)
 
