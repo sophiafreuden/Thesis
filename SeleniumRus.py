@@ -22,7 +22,7 @@ driver = webdriver.Chrome(PATH)
 
 # Change the URL below to what you need it to be re: search term and date.
 
-driver.get("https://russian.rt.com/search?q=%D0%BA%D0%BB%D0%B8%D0%BD%D1%82%D0%BE%D0%BD+%D0%BC%D0%B0%D0%B9%D0%B4%D0%B0%D0%BD&type=&df=&dt=2019-12-31")
+driver.get("https://russian.rt.com/search?q=%D0%BA%D0%BB%D0%B8%D0%BD%D1%82%D0%BE%D0%BD+%D0%B3%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%D1%81%D0%BA%D0%BE%D0%B5+%D0%BE%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%BE&type=&df=&dt=2019-12-31")
 
 closepopup = driver.find_elements_by_xpath('.//a[@class="subscribe__close js-subscribe-close"]')
 
@@ -56,9 +56,9 @@ def clicker(number):
     clicks = pages - 1
     print("Clicks is " + str(clicks) + ".")
     while clicked < clicks:
-        time.sleep(3) # Usually 3, more if "Загрузить еще" button disappears in console
+        time.sleep(5) # Usually 3, more if "Загрузить еще" button disappears in console
         button = driver.find_element_by_xpath('.//a[@class="button__item button__item_listing"]')
-        time.sleep(3) # Usually 3, more if "Загрузить еще" button disappears in console
+        time.sleep(5) # Usually 3, more if "Загрузить еще" button disappears in console
         driver.execute_script("arguments[0].click();", button)
         if clicked > clicks:
             break
@@ -73,7 +73,7 @@ if resultsno > 15:
 if resultsno <= 15 and resultsno != 0:
     print("15 or fewer results. No clicking necessary.")
 
-time.sleep(1)
+time.sleep(3)
 
 links = []
 

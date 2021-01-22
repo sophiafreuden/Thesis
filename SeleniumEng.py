@@ -33,7 +33,7 @@ search = driver.find_element_by_name("q")
 
 time.sleep(2)
 
-search.send_keys("soros democratic party")
+search.send_keys("clinton orange revolution")
 
 time.sleep(2)
 
@@ -74,9 +74,9 @@ def clicker(number):
     clicks = pages - 1
     print("Clicks is " + str(clicks) + ".")
     while clicked < clicks:
-        time.sleep(3) # Usually 3, more if "More" button disappears in console
+        time.sleep(5) # Usually 3, more if "More" button disappears in console
         element = driver.find_element_by_link_text("More")
-        time.sleep(3) # Usually 3, more if "More" button disappears in console
+        time.sleep(1) # Usually 3, more if "More" button disappears in console
         driver.execute_script("arguments[0].click();", element)
         if clicked > clicks:
             break
@@ -99,11 +99,15 @@ if resultsno == 0:
 
 # Step 4: Scrape the Article Links
 
-time.sleep(1)
+time.sleep(2)
 
 rawlinks = []
 
-for a in driver.find_elements_by_xpath('.//a[@class="link link_hover"]'):
+scraped = driver.find_elements_by_xpath('.//a[@class="link link_hover"]')
+
+time.sleep(3)
+
+for a in scraped:
     rawlinks.append(a.get_attribute('href'))
 
 links = []
