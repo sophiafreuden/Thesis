@@ -58,8 +58,6 @@ search[0].send_keys(Keys.RETURN)
 
 time.sleep(2)
 
-# This is seemingly working up to this point...
-
 # With search results roughly at or below 500, the "Weiter" button will pull
 # an initial 10 results plus 10 more per click. This changes if you ping a
 # ridiculously high number of results. To see what I mean, search "merkel"
@@ -281,8 +279,7 @@ time.sleep(3)
 
 driver.quit()
 
-# Be sure to rename your txt files immediately. I will follow a non-diacritic
-# spelling in the file names of the German searches (i.e. no umlauts, ß = ss).
+# Be sure to rename your txt files immediately.
 
 # See cleanup instructions in the readme.
 
