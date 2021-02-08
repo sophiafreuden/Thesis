@@ -105,6 +105,7 @@ rawlinks = []
 
 scraped = driver.find_elements_by_xpath('.//a[@class="link link_hover"]')
 
+
 time.sleep(3)
 
 for a in scraped:

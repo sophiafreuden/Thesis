@@ -5,8 +5,8 @@ Created on Sun Feb  7 14:00:53 2021
 @author: sof565
 """
 
-# This is the Prosem script meant to show the basics of Selenium and Beautiful
-# Soup in Python.
+# This is the Prosem script meant to show the basics of Selenium in Python.
+# See the second script in this series for content scraping with BeautifulSoup.
 
 # The first thing you need to do is install Selenium. I will show you how to do
 # that on Zoom. Be sure to follow the instructions in the accompanying PDF.
@@ -57,6 +57,8 @@ element = driver.find_element_by_link_text("More")
 time.sleep(1)
 
 driver.execute_script("arguments[0].click();", element)
+
+# All done!
 
 
 
