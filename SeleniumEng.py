@@ -33,7 +33,7 @@ search = driver.find_element_by_name("q")
 
 time.sleep(2)
 
-search.send_keys("clinton orange revolution")
+search.send_keys("soros russia")
 
 time.sleep(2)
 
@@ -104,6 +104,7 @@ time.sleep(2)
 rawlinks = []
 
 scraped = driver.find_elements_by_xpath('.//a[@class="link link_hover"]')
+
 
 time.sleep(3)
 
