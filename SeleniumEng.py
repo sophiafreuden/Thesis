@@ -33,7 +33,7 @@ search = driver.find_element_by_name("q")
 
 time.sleep(2)
 
-search.send_keys("clinton orange revolution")
+search.send_keys("soros russia")
 
 time.sleep(2)
 
