@@ -54,7 +54,7 @@ search.send_keys(Keys.RETURN)
 
 element = driver.find_element_by_link_text("More")
 
-time.sleep(1)
+time.sleep(2)
 
 driver.execute_script("arguments[0].click();", element)
 

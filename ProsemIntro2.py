@@ -30,7 +30,7 @@ title = rawtitle.get_text(strip = True)
 
 titles.append(title)
 
-# print(titles)
+print(titles)
 
 # Part 5: Create dates list
 dates = []
@@ -43,7 +43,7 @@ date = rawdate.get_text(strip = True)
 
 dates.append(date)
 
-# print(dates)
+print(dates)
 
 # Part 7: Create paragraphs list
 paragraphs = []
@@ -55,8 +55,8 @@ text = page.find_all("p")
 for p in text:
     paragraphs.append(p.get_text(strip = True))
     
-# for paragraph in paragraphs:
-#     print(paragraph)
+for paragraph in paragraphs:
+    print(paragraph)
 
 # All done!
 
