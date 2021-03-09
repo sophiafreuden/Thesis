@@ -14,13 +14,19 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
+# If you get an error that you're using a version of chrome not compatiable
+# with the version used in the driver, uncomment the two following lines
+# and comment out the code at lines 25 and 26.
+from webdriver_manager.chrome import ChromeDriverManager
+driver = webdriver.Chrome(ChromeDriverManager().install())
+
 # Step 1: Set Up Selenium
 
-PATH = "C:\Program Files (x86)\chromedriver.exe"
-driver = webdriver.Chrome(PATH)
+# PATH = "C:\Program Files (x86)\chromedriver.exe"
+# driver = webdriver.Chrome(PATH)
 
 # Step 2: Begin Search. You will need to enter your custom search terms in
-# search.send_keys() below (line 36).
+# search.send_keys() below (line 42).
 
 driver.get("https://www.rt.com/")
 
@@ -33,7 +39,7 @@ search = driver.find_element_by_name("q")
 
 time.sleep(2)
 
-search.send_keys("soros nato")
+search.send_keys("clinton duma")
 
 time.sleep(2)
 
