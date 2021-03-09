@@ -16,19 +16,24 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
-PATH = "C:\Program Files (x86)\chromedriver.exe"
+# If you get an error that you're using a version of chrome not compatiable
+# with the version used in the driver, uncomment the two following lines
+# and comment out the code at lines 25 and 26.
+from webdriver_manager.chrome import ChromeDriverManager
+driver = webdriver.Chrome(ChromeDriverManager().install())
 
-driver = webdriver.Chrome(PATH)
+# PATH = "C:\Program Files (x86)\chromedriver.exe"
+# driver = webdriver.Chrome(PATH)
 
 # Change the URL below to what you need it to be re: search term and date.
 
-driver.get("https://russian.rt.com/search?q=%D0%BA%D0%BB%D0%B8%D0%BD%D1%82%D0%BE%D0%BD+%D0%B3%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%D1%81%D0%BA%D0%BE%D0%B5+%D0%BE%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%BE&type=&df=&dt=2019-12-31")
+driver.get("https://russian.rt.com/search?q=%D0%BA%D0%BB%D0%B8%D0%BD%D1%82%D0%BE%D0%BD+%D0%BD%D0%B0%D1%82%D0%BE&type=&df=&dt=2019-12-31")
 
 closepopup = driver.find_elements_by_xpath('.//a[@class="subscribe__close js-subscribe-close"]')
 
 time.sleep(1)
 
-closepopup[0].click()
+# closepopup[0].click()
 
 time.sleep(1)
 
